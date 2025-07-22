@@ -6,10 +6,10 @@ import os
 
 #general variables
 env_dir = (os.getcwd()+"\\env")
-
-
 # Command to check whether the direct query works // this isn't in-use currently but it should as it'd be better a implementation... cant test it anyway...
 command = ["nvidia-smi", "--query-gpu=cuda_version", "--format=csv,noheader"]
+
+cuda_available = False
 
 # first check whether cuda is available or not
 
@@ -20,12 +20,15 @@ try:
     match = re.search(r"CUDA Version:\s*([\d\.]+)", result.stdout)
     
     if match:
+        cuda_available = True
         cuda_version = match.group(1)
         print(f"Successfully found CUDA version: {cuda_version}")
     else:
+        
         print("Could not find CUDA version in nvidia-smi output.")
 
 except (subprocess.CalledProcessError, FileNotFoundError) as e:
     print(f"An error occurred: {e}")
 
-print(os.listdir(env_dir))
+if cuda_available:
+    print(os.listdir(env_dir))
