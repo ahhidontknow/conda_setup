@@ -74,7 +74,7 @@ if cuda_available:
     print(user_select(all_env))
 
 
-
+print('Hello')
 
 # this is down here since there might not be a need for this package
 # to configure yaml-files to get the correct CUDA-ersion
